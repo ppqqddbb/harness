@@ -1,0 +1,8 @@
+$ node --import tsx/esm apps/cli/src/bin.ts "web"
+dsh: warning: 3 entries did not activate
+auth-local (@deepseek-ai/dsh-auth-local): failed to import
+auth-cli (@deepseek-ai/dsh-auth-cli): failed to import
+ui-auth (@deepseek-ai/dsh-client-ui-auth): failed to import
+dsh web: http://127.0.0.1:3080/?token=OBvEVQ1dHGJTm6ZBGv-G4eJ2OYnqFG0q8LDQunlqIuA
+dsh web: opening the default browser; pass --no-open to disable
+[ELIFECYCLE] Command failed with exit code 143.

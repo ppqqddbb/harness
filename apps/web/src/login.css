@@ -1,0 +1,110 @@
+:root{
+  --bg:#fafafa;
+  --card:#ffffff;
+  --line:#e4e4e7;
+  --line-strong:#d4d4d8;
+  --text-1:#18181b;
+  --text-2:#71717a;
+  --text-3:#a1a1aa;
+  --accent:#4e6ef2;
+  --accent-hover:#3d5ce0;
+  --accent-soft:#eef2fe;
+  --accent-ring:0 0 0 3px rgba(78,110,242,.15);
+  --danger:#ef4444;
+  --ok:#22c55e;
+  --warn:#b45309;
+  --radius:10px;
+  --shadow:0 1px 2px rgba(24,24,27,.04), 0 16px 40px -20px rgba(24,24,27,.14);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+::selection{background:rgba(78,110,242,.18)}
+body{
+  font-family:var(--font);color:var(--text-1);
+  background:radial-gradient(720px 320px at 50% -60px, var(--accent-soft), transparent 70%), var(--bg);
+}
+
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+
+.card{width:380px;max-width:100%;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;box-shadow:var(--shadow);padding:36px 32px 22px}
+
+.card-head{text-align:center;margin-bottom:28px}
+.logo{width:48px;height:48px;margin:0 auto 14px;border-radius:14px;background:#18181b;
+  display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(24,24,27,.4)}
+.logo svg{width:28px;height:28px}
+h1{font-size:20px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:8px}
+.badge{font-size:11px;font-weight:500;padding:3px 9px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent)}
+.sub{margin-top:7px;font-size:13px;color:var(--text-2)}
+
+.field{margin-bottom:16px;text-align:left}
+.field label{display:block;font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:7px}
+.control{position:relative}
+.control .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;
+  color:var(--text-3);transition:color .15s;pointer-events:none}
+.control input{width:100%;height:40px;padding:0 38px 0 36px;font-size:14px;font-family:inherit;color:var(--text-1);
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  transition:border-color .15s,box-shadow .15s}
+.control input::placeholder{color:var(--text-3)}
+.control input:hover{border-color:var(--line-strong)}
+.control input:focus{outline:none;border-color:var(--accent);box-shadow:var(--accent-ring)}
+.control:focus-within .icon{color:var(--accent)}
+input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #fff inset;-webkit-text-fill-color:#18181b}
+
+.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:28px;height:28px;border:none;border-radius:8px;
+  background:transparent;color:var(--text-3);display:grid;place-items:center;cursor:pointer;transition:color .15s,background .15s}
+.eye:hover{color:var(--text-2);background:#f4f4f5}
+.eye svg{width:16px;height:16px}
+.eye .i-off{display:none}
+.eye.on .i-on{display:none}
+.eye.on .i-off{display:block}
+
+.msg{display:none;margin-top:6px;font-size:12px;color:var(--danger)}
+.field.invalid .msg{display:block}
+.field.invalid .control input{border-color:#fca5a5;box-shadow:0 0 0 3px rgba(239,68,68,.10)}
+.caps{display:none;margin-top:6px;font-size:12px;color:var(--warn)}
+.caps.show{display:block}
+
+.row{display:flex;align-items:center;justify-content:space-between;margin:2px 0 20px}
+.check{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--text-2);user-select:none;position:relative}
+.check input{position:absolute;opacity:0;pointer-events:none}
+.check .box{width:15px;height:15px;border:1px solid var(--line-strong);border-radius:4px;background:#fff;
+  display:grid;place-items:center;transition:background .15s,border-color .15s}
+.check .box::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;
+  transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform .15s}
+.check input:checked + .box{background:var(--accent);border-color:var(--accent)}
+.check input:checked + .box::after{transform:translateY(-1px) rotate(-45deg) scale(1)}
+.check input:focus-visible + .box{box-shadow:var(--accent-ring)}
+.row .tip{font-size:12px;color:var(--text-3)}
+
+.form-error{display:none;margin:-6px 0 14px;font-size:12px;line-height:18px;color:var(--danger);text-align:center}
+.form-error.show{display:block}
+
+.submit{position:relative;width:100%;height:40px;border:none;border-radius:var(--radius);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:inherit;font-size:14px;font-weight:500;color:#fff;background:var(--accent);
+  box-shadow:0 6px 16px -8px rgba(78,110,242,.55);
+  transition:background .15s,transform .1s,box-shadow .15s}
+.submit:hover{background:var(--accent-hover);box-shadow:0 8px 20px -8px rgba(78,110,242,.65)}
+.submit:active{transform:scale(.985)}
+.submit:focus-visible{outline:none;box-shadow:var(--accent-ring)}
+.submit:disabled{cursor:default;opacity:.75;transform:none}
+.submit.success{background:#16a34a;box-shadow:0 6px 16px -8px rgba(22,163,74,.55)}
+.spinner{display:none;width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;animation:spin .7s linear infinite}
+.submit.loading .spinner{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.card-foot{margin-top:26px;padding-top:14px;border-top:1px solid #f4f4f5;
+  display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--text-3)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(34,197,94,.45);animation:ping 2.6s ease-out infinite}
+@keyframes ping{70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+
+.rise{animation:rise .5s cubic-bezier(.22,1,.36,1) both}
+.d1{animation-delay:.04s}.d2{animation-delay:.10s}.d3{animation-delay:.16s}.d4{animation-delay:.22s}.d5{animation-delay:.28s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card.shake{animation:shake .42s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{15%{transform:translateX(-8px)}30%{transform:translateX(7px)}45%{transform:translateX(-5px)}60%{transform:translateX(3px)}75%{transform:translateX(-2px)}}
+
+@media (max-width:480px){ .card{padding:30px 22px 18px} }
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }

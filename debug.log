@@ -1,0 +1,33 @@
+dsh: startup failed: 2 required plugins did not activate
+
+Failed plugins (4):
+  webserver (required)
+    Package: @deepseek-ai/dsh-host-webserver
+    Error: listen EADDRINUSE: address already in use 127.0.0.1:3080
+        at Server.setupListenHandle [as _listen2] (node:net:1948:16)
+        at listenInCluster (node:net:2005:12)
+        at node:net:2214:7
+        at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+  auth-local
+    Package: @deepseek-ai/dsh-auth-local
+    failed to import
+  auth-cli
+    Package: @deepseek-ai/dsh-auth-cli
+    failed to import
+  ui-auth
+    Package: @deepseek-ai/dsh-client-ui-auth
+    failed to import
+
+Plugins waiting for services (9):
+  Plugin                 Missing services
+  connection (required)  webRuntime
+  session-log-download   connection
+  open-in-app            webServer, connection
+  directory-picker       webServer
+  session-controller     fileUploads
+  web-runtime            webServer
+  client-hmr             webServer
+  file-upload            connection
+  ui-deliverables        connection, sessionController
+
+Full diagnostics: C:\Users\WYT\.dsh\logs\startup-2026-10-14T08-20-09.716Z-bf1dcc55-e333-45c3-b10b-ed0c1056f660.log
