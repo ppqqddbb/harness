@@ -129,12 +129,14 @@ export function renderLoginPage(onSuccess: () => void): void {
             remember: remember.checked,
           }),
         })
-        const data = await res.json() as LoginResponse
-        if (!res.ok || data.success !== true) {
-          if (res.status === 401) {
+        const data = await res.json().catch(() => undefined) as LoginResponse | undefined
+        if (!res.ok || data?.success !== true) {
+          if (res.status === 401 && data !== undefined) {
             userField.classList.add('invalid')
             passwordField.classList.add('invalid')
             formError.textContent = '用户名或密码错误'
+          } else if (res.status === 401) {
+            formError.textContent = '登录接口未启用，请重启服务后重试'
           } else {
             formError.textContent = '登录失败，请稍后重试'
           }

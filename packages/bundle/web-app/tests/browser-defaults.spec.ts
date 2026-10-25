@@ -39,3 +39,31 @@ it.each([
   expect(entry.disabled).toBe(disabled)
   expect(entry.fiber !== undefined).toBe(!disabled)
 })
+
+it.each([
+  { profile: 'web', auth: true },
+  { profile: 'custom-web', auth: false },
+  { profile: undefined, auth: false },
+  { profile: 'desktop', auth: false },
+])('applies local account authentication for $profile', async ({ profile, auth }) => {
+  const ids = new Set(['auth-local', 'cli-auth', 'ui-auth'])
+  const rows = loadOverlayPatches('web-auth', fileURLToPath(new URL('../cordis.patch.yml', import.meta.url)))
+    .flatMap(patch => patch.insert ?? []).filter(row => row.id !== undefined && ids.has(row.id))
+  expect(rows).toHaveLength(3)
+  const ctx = new Context()
+  onTestFinished(() => ctx.fiber.dispose())
+  if (profile !== undefined) {
+    ctx.provide('profileContext', {
+      name: profile, dir: '/profile', patchPath: '/profile/cordis.patch.yml', installAnchor: '/profile/package.json',
+      cwd: '/workspace', home: '/home', startedBundles: [], overlays: [], telemetryDisabledEnv: undefined,
+    })
+  }
+  ctx.baseUrl = 'file:///'
+  await ctx.plugin(Loader).await()
+  await ctx.loader.root.update(rows.map(row => ({ ...row })))
+  await ctx.loader.await()
+  for (const id of ids) {
+    const entry = ctx.loader.resolve(id)
+    expect(entry.disabled).toBe(!auth)
+  }
+})

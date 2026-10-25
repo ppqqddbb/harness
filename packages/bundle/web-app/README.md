@@ -44,6 +44,8 @@ After startup you see a `dsh web:` line whose root URL carries a fresh process t
 
 Saved model selections override the composition default. The settings card accepts a Messages-compatible API address and a credential reference.
 
+The Web profile also gates Host access with local accounts stored in `$DSH_HOME/auth.db`. The browser asks for a username and password before it loads the application; an existing administrator account signs in directly. A deployment whose account store has no administrator must initialize one before anyone can use the account gate. The administrator-only **Settings → User management** section creates and disables further accounts. Desktop uses its process launch token and does not mount this account gate.
+
 ### Configuration
 
 Most users never set these; the command-line flags feed the four settings below — `--host`, `--port`, and `--trusted-host` come from the invocation, and `--no-open` turns the browser handoff off for that invocation:

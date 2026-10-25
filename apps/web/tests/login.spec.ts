@@ -94,6 +94,20 @@ describe('login page', () => {
     expect(submit.disabled).toBe(false)
   })
 
+  it('reports an unavailable auth endpoint instead of a network failure', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      json: async () => { throw new SyntaxError('unexpected token') },
+    })))
+    const { form, username, password, submit } = mount()
+    username.value = 'admin'
+    password.value = 'admin123'
+    form.requestSubmit()
+    await vi.waitFor(() => { expect(document.getElementById('formError')?.textContent).toBe('登录接口未启用，请重启服务后重试') })
+    expect(submit.disabled).toBe(false)
+  })
+
   it('reports a network failure', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => { throw new Error('offline') }))
     const { form, username, password } = mount()

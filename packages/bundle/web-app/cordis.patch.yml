@@ -222,6 +222,21 @@
         # its literals, for example: ['app.internal', ...ctx.webRuntime.trustedHosts].
         trustedHosts: !!js ctx.webRuntime.trustedHosts
 
+    # Local account login for the browser surface. Desktop keeps the process
+    # launch token it already exchanges for its browser cookie, so this row is
+    # limited to the 'web' profile; enabling it for Desktop would require a
+    # second, account-backed cookie beside the shell's own.
+    - id: auth-local
+      name: '@deepseek-ai/dsh-auth-local'
+      disabled: !!js "ctx.get('profileContext')?.name !== 'web'"
+      inject: [webServer]
+
+    # Account-administration commands over the same local account store.
+    - id: cli-auth
+      name: '@deepseek-ai/dsh-cli-auth'
+      disabled: !!js "ctx.get('profileContext')?.name !== 'web'"
+      inject: [authLocal, commands]
+
     # Raw Blob and ReadableStream uploads run independently of Connection's
     # RPC and generation service.
     - id: file-upload
@@ -287,6 +302,12 @@
 
     - id: ui-settings
       name: '@deepseek-ai/dsh-client-ui-settings'
+
+    # Login gate over the local account store plus the administrator-only
+    # User management settings section.
+    - id: ui-auth
+      name: '@deepseek-ai/dsh-client-ui-auth'
+      disabled: !!js "ctx.get('profileContext')?.name !== 'web'"
 
     - id: ui-settings-general
       name: '@deepseek-ai/dsh-client-ui-settings-general'

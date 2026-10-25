@@ -2453,6 +2453,12 @@ importers:
       '@deepseek-ai/dsh-app-boot':
         specifier: workspace:*
         version: link:../../boot/app-boot
+      '@deepseek-ai/dsh-auth-local':
+        specifier: workspace:*
+        version: link:../../auth/auth-local
+      '@deepseek-ai/dsh-cli-auth':
+        specifier: workspace:*
+        version: link:../../cli/auth-cli
       '@deepseek-ai/dsh-client-connection':
         specifier: workspace:*
         version: link:../../client/connection
@@ -2486,6 +2492,9 @@ importers:
       '@deepseek-ai/dsh-client-ui-attachment':
         specifier: workspace:*
         version: link:../../client/ui-attachment
+      '@deepseek-ai/dsh-client-ui-auth':
+        specifier: workspace:*
+        version: link:../../client/ui-auth
       '@deepseek-ai/dsh-client-ui-brand-official':
         specifier: workspace:*
         version: link:../../client/ui-brand-official
